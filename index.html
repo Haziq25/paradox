@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escape Room Timer & Hints</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Escape Room Timer</h1>
+        <div id="timer">10:00</div>
+        <button onclick="startTimer()">Start Game</button>
+
+        <h2>Hints</h2>
+
+        <div class="hint-container">
+            <button class="hint-btn" onclick="requestHint(1)">Hint 1</button>
+            <input type="password" id="password1" placeholder="Enter password">
+            <p id="hint1" class="hint hidden">Look under the table!</p>
+        </div>
+
+        <div class="hint-container">
+            <button class="hint-btn" onclick="requestHint(2)">Hint 2</button>
+            <input type="password" id="password2" placeholder="Enter password">
+            <p id="hint2" class="hint hidden">Check the bookshelf for a hidden clue.</p>
+        </div>
+
+        <div class="hint-container">
+            <button class="hint-btn" onclick="requestHint(3)">Hint 3</button>
+            <input type="password" id="password3" placeholder="Enter password">
+            <p id="hint3" class="hint hidden">The lock combination is related to the paintings.</p>
+        </div>
+
+        <h2>Scan QR to Access</h2>
+        <div id="qrcode"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
