@@ -3,26 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zenscape</title>
+    <title>Admin Panel</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="qrcode.min.js"></script>
 </head>
 <body>
     <div class="container">
-        <h1>The LabRynth</h1>
-        <div id="timer">30:00</div>
-        <button id="startButton">Start Game</button>
+        <h1>Admin Panel</h1>
 
-        <h2>Hints</h2>
-        <div id="hints-container"></div>
+        <h2>Room Controls</h2>
+        <div id="roomControls"></div>
 
-        <button id="callButton">Call for Help</button>
-<p id="callStatus" class="hidden">Help requested!</p>
+        <h2>Help Requests</h2>
+        <ul id="helpRequests"></ul>
+        <button id="clearCalls">Clear All Calls</button>
 
-        <h2>Scan QR to Access</h2>
-        <div id="qrcode"></div>
+        <h2>Room QR Codes</h2>
+        <div id="qrCodes"></div>
     </div>
-
-    <script src="script.js"></script>
+    <script src="admin.js"></script>
 </body>
 </html>
