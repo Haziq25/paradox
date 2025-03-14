@@ -9,6 +9,20 @@ const hints = {
 
 let countdown;
 
+document.addEventListener("DOMContentLoaded", function () {
+    generateHints();
+    if (localStorage.getItem("startTime")) {
+        startTimer();
+    }
+
+    // Generate QR Code
+    new QRCode(document.getElementById("qrcode"), {
+        text: window.location.href,
+        width: 128,
+        height: 128
+    });
+});
+
 function startTimer() {
     const startTime = localStorage.getItem("startTime");
 
@@ -41,9 +55,18 @@ function updateTimer() {
     document.getElementById("timer").textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 }
 
-// Restore timer on reload
-if (localStorage.getItem("startTime")) {
-    startTimer();
+function generateHints() {
+    const hintsContainer = document.getElementById("hints-container");
+    Object.keys(hints).forEach((hintNumber) => {
+        const hintDiv = document.createElement("div");
+        hintDiv.classList.add("hint-container");
+        hintDiv.innerHTML = `
+            <button class="hint-btn" onclick="requestHint(${hintNumber})">Hint ${hintNumber}</button>
+            <input type="password" id="password${hintNumber}" placeholder="Enter password">
+            <p id="hint${hintNumber}" class="hint hidden"></p>
+        `;
+        hintsContainer.appendChild(hintDiv);
+    });
 }
 
 function requestHint(hintNumber) {
@@ -55,10 +78,3 @@ function requestHint(hintNumber) {
         alert("Incorrect password!");
     }
 }
-
-// Generate QR Code
-new QRCode(document.getElementById("qrcode"), {
-    text: window.location.href,
-    width: 128,
-    height: 128
-});
