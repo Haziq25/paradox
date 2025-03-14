@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zenscape</title>
+    <title>Escape Room Timer & Hints</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
     <div class="container">
-        <h1>Lost Labrynth</h1>
+        <h1>Escape Room Timer</h1>
         <div id="timer">10:00</div>
-        <button onclick="startTimer()">Start Game</button>
+        <button id="startButton">Start Game</button>
 
         <h2>Hints</h2>
         <div id="hints-container"></div>
@@ -20,26 +20,6 @@
         <div id="qrcode"></div>
     </div>
 
-    <script>
-        // Dynamically generate hint elements from JavaScript hints object
-        const hintsContainer = document.getElementById("hints-container");
-        const hints = {
-            1: { text: "Look under the table!", password: "clue1" },
-            2: { text: "Check the bookshelf for a hidden clue.", password: "clue2" },
-            3: { text: "The lock combination is related to the paintings.", password: "clue3" }
-        };
-
-        Object.keys(hints).forEach((hintNumber) => {
-            const hintDiv = document.createElement("div");
-            hintDiv.classList.add("hint-container");
-            hintDiv.innerHTML = `
-                <button class="hint-btn" onclick="requestHint(${hintNumber})">Hint ${hintNumber}</button>
-                <input type="password" id="password${hintNumber}" placeholder="Enter password">
-                <p id="hint${hintNumber}" class="hint hidden"></p>
-            `;
-            hintsContainer.appendChild(hintDiv);
-        });
-    </script>
     <script src="script.js"></script>
 </body>
 </html>
