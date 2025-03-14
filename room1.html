@@ -3,20 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ROOM_1</title>
+    <title>Escape Room</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+    <script src="room.js" defer></script>
 </head>
 <body>
-    <div class="container">
-        <h1>ROOM_1</h1>
-        <div id="timer">10:00</div>
-        <button id="startButton">Start Game</button>
-        <button id="callButton">Call for Help</button>
-        <p id="callStatus" class="hidden">Help Requested!</p>
-    </div>
-    <script src="script.js"></script>
-    <script>
-        window.history.replaceState(null, null, "?room=ROOM_1");
-    </script>
+    <h1>Escape Room</h1>
+    <h2>Time Left: <span id="timer">00:00</span></h2>
+    <button id="hintButton">Show Hint</button>
+    <p id="hintText" style="display:none;">This is a hint.</p>
+    <button id="callButton">Call for Help</button>
 </body>
 </html>
