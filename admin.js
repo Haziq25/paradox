@@ -56,15 +56,18 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     rooms.forEach(room => {
-        let qrDiv = document.createElement("div");
-        qrDiv.innerHTML = `<h3>${room.toUpperCase()}</h3><div id="qr_${room}"></div>`;
-        qrCodes.appendChild(qrDiv);
+    let qrDiv = document.createElement("div");
+    qrDiv.innerHTML = `<h3>${room.toUpperCase()}</h3><div id="qr_${room}"></div>`;
+    qrCodes.appendChild(qrDiv);
+
+    setTimeout(() => {  // Delay QR code generation slightly
         new QRCode(document.getElementById(`qr_${room}`), {
             text: window.location.origin + `/room${room.replace("room", "")}.html`,
             width: 128,
             height: 128
         });
-    });
+    }, 500);  
+});
 
     updateHelpRequests();
 });
