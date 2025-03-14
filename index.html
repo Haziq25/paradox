@@ -9,34 +9,37 @@
 </head>
 <body>
     <div class="container">
-        <h1>Zenscape</h1>
+        <h1>Escape Room Timer</h1>
         <div id="timer">10:00</div>
         <button onclick="startTimer()">Start Game</button>
 
         <h2>Hints</h2>
-
-        <div class="hint-container">
-            <button class="hint-btn" onclick="requestHint(1)">Hint 1</button>
-            <input type="password" id="password1" placeholder="Enter password">
-            <p id="hint1" class="hint hidden">Look under the table!</p>
-        </div>
-
-        <div class="hint-container">
-            <button class="hint-btn" onclick="requestHint(2)">Hint 2</button>
-            <input type="password" id="password2" placeholder="Enter password">
-            <p id="hint2" class="hint hidden">Check the bookshelf for a hidden clue.</p>
-        </div>
-
-        <div class="hint-container">
-            <button class="hint-btn" onclick="requestHint(3)">Hint 3</button>
-            <input type="password" id="password3" placeholder="Enter password">
-            <p id="hint3" class="hint hidden">The lock combination is related to the paintings.</p>
-        </div>
+        <div id="hints-container"></div>
 
         <h2>Scan QR to Access</h2>
         <div id="qrcode"></div>
     </div>
 
+    <script>
+        // Dynamically generate hint elements from JavaScript hints object
+        const hintsContainer = document.getElementById("hints-container");
+        const hints = {
+            1: { text: "Look under the table!", password: "clue1" },
+            2: { text: "Check the bookshelf for a hidden clue.", password: "clue2" },
+            3: { text: "The lock combination is related to the paintings.", password: "clue3" }
+        };
+
+        Object.keys(hints).forEach((hintNumber) => {
+            const hintDiv = document.createElement("div");
+            hintDiv.classList.add("hint-container");
+            hintDiv.innerHTML = `
+                <button class="hint-btn" onclick="requestHint(${hintNumber})">Hint ${hintNumber}</button>
+                <input type="password" id="password${hintNumber}" placeholder="Enter password">
+                <p id="hint${hintNumber}" class="hint hidden"></p>
+            `;
+            hintsContainer.appendChild(hintDiv);
+        });
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
