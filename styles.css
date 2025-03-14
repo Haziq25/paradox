@@ -15,12 +15,12 @@ body {
 }
 
 #timer {
-    font-size: 3rem;
+    font-size: 4rem;
     margin: 20px 0;
 }
 
 button {
-    background-color: #ff5722;
+    background-color: #50C878;
     color: white;
     border: none;
     padding: 10px 20px;
