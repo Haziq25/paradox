@@ -1,24 +1,69 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const rooms = ["room1", "room2", "room3"];
     const helpRequests = document.getElementById("helpRequests");
     const clearCallsButton = document.getElementById("clearCalls");
+    const roomControls = document.getElementById("roomControls");
+    const qrCodes = document.getElementById("qrCodes");
+
+    rooms.forEach(room => {
+        const roomDiv = document.createElement("div");
+        roomDiv.innerHTML = `
+            <h3>${room.toUpperCase()}</h3>
+            <label>Set Timer (minutes): 
+                <input type="number" id="timeInput_${room}" min="1" value="${localStorage.getItem(`gameDuration_${room}`) || 10}">
+            </label>
+            <button class="setTimeBtn" data-room="${room}">Set Time</button>
+            <button class="resetTimerBtn" data-room="${room}">Reset Timer</button>
+        `;
+        roomControls.appendChild(roomDiv);
+    });
+
+    document.querySelectorAll(".setTimeBtn").forEach(button => {
+        button.addEventListener("click", function () {
+            const room = this.getAttribute("data-room");
+            const time = document.getElementById(`timeInput_${room}`).value;
+            localStorage.setItem(`gameDuration_${room}`, time * 60);
+            alert(`${room} timer set to ${time} minutes.`);
+        });
+    });
+
+    document.querySelectorAll(".resetTimerBtn").forEach(button => {
+        button.addEventListener("click", function () {
+            const room = this.getAttribute("data-room");
+            localStorage.removeItem(`startTime_${room}`);
+            localStorage.setItem("timerReset", Date.now());
+            alert(`${room} timer reset.`);
+        });
+    });
 
     function updateHelpRequests() {
-        helpRequests.innerHTML = localStorage.getItem("helpRequest") === "true"
-            ? "<li>Help needed!</li>" 
-            : "<li>No active calls.</li>";
+        helpRequests.innerHTML = "";
+        rooms.forEach(room => {
+            if (localStorage.getItem(`helpRequest_${room}`) === "true") {
+                helpRequests.innerHTML += `<li>Help needed in ${room}!</li>`;
+            }
+        });
+
+        if (helpRequests.innerHTML === "") {
+            helpRequests.innerHTML = "<li>No active calls.</li>";
+        }
     }
 
     clearCallsButton.addEventListener("click", function () {
-        localStorage.removeItem("helpRequest");
-        localStorage.setItem("helpUpdated", Date.now()); // Notify game page
+        rooms.forEach(room => localStorage.removeItem(`helpRequest_${room}`));
+        localStorage.setItem("helpUpdated", Date.now());
         updateHelpRequests();
     });
 
-    // Real-time update listener
-    window.addEventListener("storage", function (event) {
-        if (event.key === "helpUpdated") {
-            updateHelpRequests();
-        }
+    rooms.forEach(room => {
+        let qrDiv = document.createElement("div");
+        qrDiv.innerHTML = `<h3>${room.toUpperCase()}</h3><div id="qr_${room}"></div>`;
+        qrCodes.appendChild(qrDiv);
+        new QRCode(document.getElementById(`qr_${room}`), {
+            text: window.location.origin + `/room${room.replace("room", "")}.html`,
+            width: 128,
+            height: 128
+        });
     });
 
     updateHelpRequests();
