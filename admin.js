@@ -55,18 +55,29 @@ document.addEventListener("DOMContentLoaded", function () {
         updateHelpRequests();
     });
 
-    rooms.forEach(room => {
-    let qrDiv = document.createElement("div");
-    qrDiv.innerHTML = `<h3>${room.toUpperCase()}</h3><div id="qr_${room}"></div>`;
-    qrCodes.appendChild(qrDiv);
+    document.addEventListener("DOMContentLoaded", function () {
+    const rooms = ["room1", "room2", "room3"];
+    const qrCodes = document.getElementById("qrCodes");
 
-    setTimeout(() => {  // Delay QR code generation slightly
-        new QRCode(document.getElementById(`qr_${room}`), {
-            text: window.location.origin + `/room${room.replace("room", "")}.html`,
-            width: 128,
-            height: 128
-        });
-    }, 500);  
+    rooms.forEach(room => {
+        let roomNumber = room.replace("room", "");  // Get "1", "2", "3"
+        let qrDiv = document.createElement("div");
+        qrDiv.innerHTML = `
+            <h3>${room.toUpperCase()}</h3>
+            <a href="room${roomNumber}.html" target="_blank">Open ${room.toUpperCase()}</a>
+            <div id="qr_${room}"></div>
+        `;
+        qrCodes.appendChild(qrDiv);
+
+        setTimeout(() => {
+            new QRCode(document.getElementById(`qr_${room}`), {
+                text: window.location.origin + `/escape-room/room${roomNumber}.html`, 
+                width: 128,
+                height: 128
+            });
+        }, 500);
+    });
+});
 });
 
     updateHelpRequests();
