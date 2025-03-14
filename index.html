@@ -3,25 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="qrcode.min.js"></script>
+    <title>Escape Room Admin Panel</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+    <script src="admin.js" defer></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Admin Panel</h1>
+    <h1>Escape Room Admin Panel</h1>
 
-        <h2>Room Controls</h2>
-        <div id="roomControls"></div>
-
-        <h2>Help Requests</h2>
-        <ul id="helpRequests"></ul>
-        <button id="clearCalls">Clear All Calls</button>
-
-        <h2>Room QR Codes</h2>
-        <div id="qrCodes"></div>
+    <h2>Room Timers</h2>
+    <div id="timers">
+        <div>
+            <h3>Room 1</h3>
+            <input type="number" id="timeInput_room1" placeholder="Minutes">
+            <button id="setTimer_room1">Set Timer</button>
+        </div>
+        <div>
+            <h3>Room 2</h3>
+            <input type="number" id="timeInput_room2" placeholder="Minutes">
+            <button id="setTimer_room2">Set Timer</button>
+        </div>
+        <div>
+            <h3>Room 3</h3>
+            <input type="number" id="timeInput_room3" placeholder="Minutes">
+            <button id="setTimer_room3">Set Timer</button>
+        </div>
     </div>
-    <script src="qrcode.min.js"></script>
-    <script src="admin.js"></script>
+
+    <h2>Room QR Codes</h2>
+    <div id="qrCodes"></div>
+
+    <h2>Help Requests</h2>
+    <div id="callsList"></div>
+
 </body>
 </html>
