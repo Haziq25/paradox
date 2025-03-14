@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             setTimeout(() => {
                 new QRCode(document.getElementById(`qr_${room}`), {
-                    text: window.location.origin + `/room${roomNumber}.html`, 
+                    text: window.location.origin + `escape-room/room${roomNumber}.html`, 
                     width: 128,
                     height: 128
                 });
