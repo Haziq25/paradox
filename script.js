@@ -13,37 +13,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const startButton = document.getElementById("startButton");
     const hintsContainer = document.getElementById("hints-container");
 
-    // Generate hints dynamically
-    function generateHints() {
-        hintsContainer.innerHTML = ""; // Clear old hints if reloaded
-        Object.keys(hints).forEach((hintNumber) => {
-            const hintDiv = document.createElement("div");
-            hintDiv.classList.add("hint-container");
-            hintDiv.innerHTML = `
-                <button class="hint-btn" data-hint="${hintNumber}">Hint ${hintNumber}</button>
-                <input type="password" id="password${hintNumber}" placeholder="Enter password">
-                <p id="hint${hintNumber}" class="hint hidden"></p>
-            `;
-            hintsContainer.appendChild(hintDiv);
-        });
-
-        // Attach event listeners to dynamically generated buttons
-        document.querySelectorAll(".hint-btn").forEach(button => {
-            button.addEventListener("click", function () {
-                const hintNumber = this.getAttribute("data-hint");
-                requestHint(hintNumber);
-            });
-        });
-    }
-
     function startTimer() {
-        let startTime = localStorage.getItem("startTime");
-
-        if (!startTime) {
-            startTime = Math.floor(Date.now() / 1000);
-            localStorage.setItem("startTime", startTime);
+        if (!localStorage.getItem("startTime")) {
+            const now = Math.floor(Date.now() / 1000);
+            localStorage.setItem("startTime", now);
         }
-
         updateTimer();
         countdown = setInterval(updateTimer, 1000);
     }
@@ -68,6 +42,27 @@ document.addEventListener("DOMContentLoaded", function () {
         timerElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     }
 
+    function generateHints() {
+        hintsContainer.innerHTML = ""; // Clear old hints
+        Object.keys(hints).forEach((hintNumber) => {
+            const hintDiv = document.createElement("div");
+            hintDiv.classList.add("hint-container");
+            hintDiv.innerHTML = `
+                <button class="hint-btn" data-hint="${hintNumber}">Hint ${hintNumber}</button>
+                <input type="password" id="password${hintNumber}" placeholder="Enter password">
+                <p id="hint${hintNumber}" class="hint hidden"></p>
+            `;
+            hintsContainer.appendChild(hintDiv);
+        });
+
+        document.querySelectorAll(".hint-btn").forEach(button => {
+            button.addEventListener("click", function () {
+                const hintNumber = this.getAttribute("data-hint");
+                requestHint(hintNumber);
+            });
+        });
+    }
+
     function requestHint(hintNumber) {
         let inputPassword = document.getElementById(`password${hintNumber}`).value;
         if (inputPassword === hints[hintNumber].password) {
@@ -78,13 +73,18 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Start timer when button is clicked
-    startButton.addEventListener("click", startTimer);
+    // Attach event listener to start button **after the DOM is loaded**
+    startButton.addEventListener("click", function () {
+        startTimer();
+    });
 
-    // Restore timer on reload
+    // Restore timer if the page is refreshed
     if (localStorage.getItem("startTime")) {
         startTimer();
     }
+
+    // Generate hints on page load
+    generateHints();
 
     // Generate QR Code
     new QRCode(document.getElementById("qrcode"), {
@@ -92,7 +92,4 @@ document.addEventListener("DOMContentLoaded", function () {
         width: 128,
         height: 128
     });
-
-    // Generate hints when page loads
-    generateHints();
 });
