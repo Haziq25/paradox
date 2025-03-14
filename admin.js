@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Function to create QR codes
     function generateQRCodes() {
+        qrCodes.innerHTML = "";
+        
         rooms.forEach(room => {
             let roomNumber = room.replace("room", "");  // Extract room number (1, 2, 3)
             let qrDiv = document.createElement("div");
@@ -20,13 +22,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
             setTimeout(() => {
                 new QRCode(document.getElementById(`qr_${room}`), {
-                    text: window.location.origin + `/escape-room/room${roomNumber}.html`, 
+                    text: window.location.origin + `/room${roomNumber}.html`, 
                     width: 128,
                     height: 128
                 });
             }, 500);
         });
     }
+
+    generateQRCodes();
+});
 
     // Function to update room timers
     function updateTimer(room, timeInMinutes) {
