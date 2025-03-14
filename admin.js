@@ -6,24 +6,31 @@ document.addEventListener("DOMContentLoaded", function () {
     const db = firebase.database();
 
     // Generate QR Codes
-    function generateQRCodes() {
-        qrCodes.innerHTML = "";
-        rooms.forEach(room => {
-            let roomNumber = room.replace("room", "");
-            let qrDiv = document.createElement("div");
-            qrDiv.innerHTML = `
-                <h3>${room.toUpperCase()}</h3>
-                <a href="room${roomNumber}.html" target="_blank">Open ${room.toUpperCase()}</a>
-                <div id="qr_${room}"></div>
-            `;
-            qrCodes.appendChild(qrDiv);
+    // New QR Code Generation (REPLACE WITH THIS)
+function generateQRCodes() {
+    const rooms = ["room1", "room2", "room3"];
+    const qrCodes = document.getElementById("qrCodes");
+    qrCodes.innerHTML = ""; // Clear previous QR codes
+
+    rooms.forEach(room => {
+        let roomNumber = room.replace("room", ""); // Extract number (1, 2, 3)
+        let qrDiv = document.createElement("div");
+        qrDiv.innerHTML = `
+            <h3>${room.toUpperCase()}</h3>
+            <a href="room${roomNumber}.html" target="_blank">Open ${room.toUpperCase()}</a>
+            <div id="qr_${room}"></div>
+        `;
+        qrCodes.appendChild(qrDiv);
+
+        setTimeout(() => {
             new QRCode(document.getElementById(`qr_${room}`), {
                 text: window.location.origin + `/room${roomNumber}.html`,
                 width: 128,
                 height: 128
             });
-        });
-    }
+        }, 500);
+    });
+}
 
     // Set Timer for Rooms
     rooms.forEach(room => {
