@@ -1,5 +1,5 @@
 /***** CONFIGURATION *****/
-const gameDuration = 10 * 60; // Set game duration in seconds (e.g., 10 minutes)
+const gameDuration = 30 * 60; // Set game duration in seconds (e.g., 10 minutes)
 const hints = {
     1: { text: "Look under the table!", password: "clue1" },
     2: { text: "Check the bookshelf for a hidden clue.", password: "clue2" },
