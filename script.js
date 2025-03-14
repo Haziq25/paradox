@@ -92,4 +92,21 @@ document.addEventListener("DOMContentLoaded", function () {
         width: 128,
         height: 128
     });
+    
+    // Call for Help Button
+document.getElementById("callButton").addEventListener("click", function () {
+    localStorage.setItem("helpRequest", "true");
+    document.getElementById("callStatus").classList.remove("hidden");
+    alert("Help request sent!");
+
+    // Trigger event for real-time update
+    localStorage.setItem("helpUpdated", Date.now());
+});
+
+// Listen for real-time updates (if admin clears the call)
+window.addEventListener("storage", function (event) {
+    if (event.key === "helpUpdated") {
+        document.getElementById("callStatus").classList.add("hidden");
+    }
+});
 });
