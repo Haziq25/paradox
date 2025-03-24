@@ -52,8 +52,11 @@ function restoreHints() {
 // Reset Timer (Admin Only)
 function resetTimer() {
     if (confirm("Are you sure you want to reset the timer and clear all hints?")) {
-        localStorage.clear(); // Clears all stored data (timer + hints)
-        location.reload(); // Reloads the page
+        localStorage.removeItem("escapeRoomStartTime"); // Reset timer
+        for (let i = 1; i <= 3; i++) {
+            localStorage.removeItem(`hint${i}`); // Clear all hints
+        }
+        location.reload(); // Reload the page
     }
 }
 // Unlock Admin Controls
