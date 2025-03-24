@@ -6,7 +6,6 @@ let interval;
 
 const timerDisplay = document.getElementById("timer");
 const startBtn = document.getElementById("startBtn");
-const pauseBtn = document.getElementById("pauseBtn");
 
 function updateTimer() {
     let time = elapsedTime;
@@ -29,20 +28,13 @@ function startTimer() {
     }
 }
 
-function pauseTimer() {
-    clearInterval(interval);
-    localStorage.setItem("timerRunning", "false");
-    timerRunning = false;
+// Attach event listener to start button
+if (startBtn) {
+    startBtn.addEventListener("click", startTimer);
 }
 
-startBtn.addEventListener("click", startTimer);
-pauseBtn.addEventListener("click", pauseTimer);
-
-if (timerRunning) {
-    startTimer();
-} else {
-    updateTimer();
-}
+// Only update the timer, without restarting it
+updateTimer();
 
 // Hint Buttons with Double Confirmation
 const hintsDisplay = document.getElementById("hintsDisplay");
@@ -51,25 +43,32 @@ const hintsDisplay = document.getElementById("hintsDisplay");
 const revealedHints = JSON.parse(localStorage.getItem("revealedHints")) || {};
 
 function showHint(hintId, hintText) {
-    revealedHints[hintId] = hintText;
-    localStorage.setItem("revealedHints", JSON.stringify(revealedHints));
-
-    const hintElement = document.createElement("p");
-    hintElement.textContent = hintText;
-    hintsDisplay.appendChild(hintElement);
-}
-
-document.querySelectorAll(".hint-btn").forEach(button => {
-    const hintId = button.getAttribute("data-hint-id");
-    
-    // If hint is already revealed, display it
-    if (revealedHints[hintId]) {
-        showHint(hintId, revealedHints[hintId]);
+    if (!revealedHints[hintId]) {
+        revealedHints[hintId] = hintText;
+        localStorage.setItem("revealedHints", JSON.stringify(revealedHints));
     }
 
+    if (!document.getElementById(hintId)) {
+        const hintElement = document.createElement("p");
+        hintElement.textContent = hintText;
+        hintElement.id = hintId;
+        hintsDisplay.appendChild(hintElement);
+    }
+}
+
+// Ensure all hints that were revealed remain visible
+document.addEventListener("DOMContentLoaded", () => {
+    Object.keys(revealedHints).forEach(hintId => {
+        showHint(hintId, revealedHints[hintId]);
+    });
+});
+
+// Attach event listeners to hint buttons
+document.querySelectorAll(".hint-btn").forEach(button => {
     button.addEventListener("click", () => {
         const hintText = button.getAttribute("data-hint");
-        
+        const hintId = button.getAttribute("data-hint-id");
+
         if (revealedHints[hintId]) return;
 
         const confirmFirst = confirm("Are you sure you want to reveal this hint?");
