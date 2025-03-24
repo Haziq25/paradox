@@ -32,11 +32,27 @@ function updateTimer() {
     }, 1000);
 }
 
+function revealHint(number) {
+    if (confirm(`Are you sure you want to reveal Hint ${number}?`)) {
+        document.getElementById(`hint${number}`).style.display = "block";
+        localStorage.setItem(`hint${number}`, "visible"); // Save hint state
+    }
+}
+
+function restoreHints() {
+    for (let i = 1; i <= 3; i++) {
+        if (localStorage.getItem(`hint${i}`) === "visible") {
+            document.getElementById(`hint${i}`).style.display = "block";
+        }
+    }
+}
+
 startBtn.addEventListener("click", () => {
     if (!localStorage.getItem("escapeRoomStartTime")) {
         startTimer();
     }
 });
 
-// Ensure the timer continues after refresh
+// Ensure timer and hints persist after refresh
 updateTimer();
+restoreHints();
