@@ -1,6 +1,8 @@
 const countdownDuration = 30 * 60; // 30 minutes in seconds
 const timerDisplay = document.getElementById("timer");
 const startBtn = document.getElementById("startBtn");
+const resetBtn = document.getElementById("resetBtn");
+const adminUnlockBtn = document.getElementById("adminUnlockBtn");
 
 function startTimer() {
     if (!localStorage.getItem("escapeRoomStartTime")) {
@@ -35,7 +37,7 @@ function updateTimer() {
 function revealHint(number) {
     if (confirm(`Are you sure you want to reveal Hint ${number}?`)) {
         document.getElementById(`hint${number}`).style.display = "block";
-        localStorage.setItem(`hint${number}`, "visible"); // Save hint state
+        localStorage.setItem(`hint${number}`, "visible");
     }
 }
 
@@ -47,6 +49,26 @@ function restoreHints() {
     }
 }
 
+// Reset Timer (Admin Only)
+function resetTimer() {
+    if (confirm("Are you sure you want to reset the timer?")) {
+        localStorage.removeItem("escapeRoomStartTime");
+        location.reload();
+    }
+}
+
+// Unlock Admin Controls
+adminUnlockBtn.addEventListener("click", () => {
+    const passcode = prompt("Enter admin password:");
+    if (passcode === "admin123") { // Change this password as needed
+        resetBtn.classList.remove("hidden");
+        alert("Admin mode activated.");
+    } else {
+        alert("Incorrect password!");
+    }
+});
+
+resetBtn.addEventListener("click", resetTimer);
 startBtn.addEventListener("click", () => {
     if (!localStorage.getItem("escapeRoomStartTime")) {
         startTimer();
