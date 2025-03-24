@@ -1,38 +1,25 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #f8f9fa;
-}
-
-.container {
-    max-width: 500px;
-    margin: auto;
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
 }
 
 #timer {
-    font-size: 3em;
-    margin: 20px 0;
+    font-size: 2em;
+    margin: 20px;
 }
 
 button {
-    display: block;
-    margin: 10px auto;
-    padding: 10px 20px;
     font-size: 1em;
+    padding: 10px 20px;
+    margin: 5px;
     cursor: pointer;
 }
 
-#hintsDisplay p {
+.hint {
+    display: none;
     font-size: 1.2em;
-    color: #d9534f;
-    font-weight: bold;
-}
-
-#qrCode {
-    width: 150px;
     margin-top: 10px;
+    font-weight: bold;
+    color: darkred;
 }
