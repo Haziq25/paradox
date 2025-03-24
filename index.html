@@ -3,25 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escape Room Timer & Hints</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Escape Room Timer</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
     <div class="container">
         <h1>Escape Room Timer</h1>
-        <div id="timer">10:00</div>
-        <button onclick="startTimer()">Start Game</button>
+        <div id="timer">00:00</div>
+        <button id="startBtn">Start</button>
+        <button id="pauseBtn">Pause</button>
 
-        <h2>Hints</h2>
-        <button class="hint-btn" onclick="showHint(1)">Show Hint 1</button>
-        <p id="hint1" class="hint hidden">Look under the table!</p>
+        <div class="hints">
+            <button class="hint-btn" data-hint="Hint 1: Look under the table!" data-hint-id="hint1">Hint 1</button>
+            <button class="hint-btn" data-hint="Hint 2: The bookshelf has a secret." data-hint-id="hint2">Hint 2</button>
+            <button class="hint-btn" data-hint="Hint 3: Check the clock." data-hint-id="hint3">Hint 3</button>
+        </div>
 
-        <button class="hint-btn" onclick="showHint(2)">Show Hint 2</button>
-        <p id="hint2" class="hint hidden">Check the bookshelf for a hidden clue.</p>
+        <div id="hintsDisplay"></div>
 
-        <button class="hint-btn" onclick="showHint(3)">Show Hint 3</button>
-        <p id="hint3" class="hint hidden">The lock combination is related to the paintings.</p>
+        <div id="qrCodeContainer">
+            <h3>Scan this QR code:</h3>
+            <img id="qrCode" src="qrcode.png" alt="QR Code">
+        </div>
     </div>
-    <script src="script.js"></script>
 </body>
 </html>
