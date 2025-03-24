@@ -1,15 +1,12 @@
-const countdownDuration = 30 * 60; // Set countdown time in seconds (e.g., 30 minutes)
+const countdownDuration = 30 * 60; // 30 minutes in seconds
 const timerDisplay = document.getElementById("timer");
 const startBtn = document.getElementById("startBtn");
 
 function startTimer() {
-    const startTime = localStorage.getItem("escapeRoomStartTime");
-
-    if (!startTime) {
+    if (!localStorage.getItem("escapeRoomStartTime")) {
         const now = Math.floor(Date.now() / 1000);
         localStorage.setItem("escapeRoomStartTime", now);
     }
-
     updateTimer();
 }
 
@@ -35,16 +32,11 @@ function updateTimer() {
     }, 1000);
 }
 
-function revealHint(number) {
-    if (confirm(`Are you sure you want to reveal Hint ${number}?`)) {
-        document.getElementById(`hint${number}`).style.display = "block";
-    }
-}
-
 startBtn.addEventListener("click", () => {
     if (!localStorage.getItem("escapeRoomStartTime")) {
         startTimer();
     }
 });
 
+// Ensure the timer continues after refresh
 updateTimer();
