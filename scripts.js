@@ -28,18 +28,11 @@ function startTimer() {
     }
 }
 
-// Attach event listener to start button
-if (startBtn) {
-    startBtn.addEventListener("click", startTimer);
-}
-
-// Only update the timer, without restarting it
+startBtn.addEventListener("click", startTimer);
 updateTimer();
 
 // Hint Buttons with Double Confirmation
 const hintsDisplay = document.getElementById("hintsDisplay");
-
-// Load revealed hints from local storage
 const revealedHints = JSON.parse(localStorage.getItem("revealedHints")) || {};
 
 function showHint(hintId, hintText) {
@@ -56,14 +49,13 @@ function showHint(hintId, hintText) {
     }
 }
 
-// Ensure all hints that were revealed remain visible
+// Load existing hints on page load
 document.addEventListener("DOMContentLoaded", () => {
     Object.keys(revealedHints).forEach(hintId => {
         showHint(hintId, revealedHints[hintId]);
     });
 });
 
-// Attach event listeners to hint buttons
 document.querySelectorAll(".hint-btn").forEach(button => {
     button.addEventListener("click", () => {
         const hintText = button.getAttribute("data-hint");
