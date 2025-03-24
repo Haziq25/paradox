@@ -1,4 +1,6 @@
-// Persistent Timer
+// Set the starting time in seconds (Change this in the code)
+const START_TIME = 600; // 10 minutes
+
 let startTime = localStorage.getItem("startTime");
 let elapsedTime = parseInt(localStorage.getItem("elapsedTime")) || 0;
 let timerRunning = localStorage.getItem("timerRunning") === "true";
@@ -7,13 +9,15 @@ let interval;
 const timerDisplay = document.getElementById("timer");
 const startBtn = document.getElementById("startBtn");
 
+// Update Timer Display
 function updateTimer() {
-    let time = elapsedTime;
-    let minutes = Math.floor(time / 60);
-    let seconds = time % 60;
+    let remainingTime = Math.max(START_TIME - elapsedTime, 0);
+    let minutes = Math.floor(remainingTime / 60);
+    let seconds = remainingTime % 60;
     timerDisplay.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 }
 
+// Start Timer
 function startTimer() {
     if (!timerRunning) {
         startTime = Date.now() - elapsedTime * 1000;
@@ -35,9 +39,10 @@ if (startBtn) {
     startBtn.addEventListener("click", startTimer);
 }
 
+// Initialize Timer
 updateTimer();
 
-// Hints - Double Confirmation & Persistent Reveal
+// Load Persistent Hints
 const hintsDisplay = document.getElementById("hintsDisplay");
 const revealedHints = JSON.parse(localStorage.getItem("revealedHints")) || {};
 
@@ -62,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// Ensure hint buttons are set up correctly
+// Attach event listeners to hint buttons
 document.querySelectorAll(".hint-btn").forEach(button => {
     button.addEventListener("click", () => {
         const hintText = button.getAttribute("data-hint");
