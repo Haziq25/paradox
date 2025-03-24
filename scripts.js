@@ -19,19 +19,25 @@ function startTimer() {
         startTime = Date.now() - elapsedTime * 1000;
         localStorage.setItem("startTime", startTime);
         localStorage.setItem("timerRunning", "true");
+
         interval = setInterval(() => {
             elapsedTime = Math.floor((Date.now() - startTime) / 1000);
             localStorage.setItem("elapsedTime", elapsedTime);
             updateTimer();
         }, 1000);
+
         timerRunning = true;
     }
 }
 
-startBtn.addEventListener("click", startTimer);
+// Ensure the timer starts correctly when the button is clicked
+if (startBtn) {
+    startBtn.addEventListener("click", startTimer);
+}
+
 updateTimer();
 
-// Hint Buttons with Double Confirmation
+// Hints - Double Confirmation & Persistent Reveal
 const hintsDisplay = document.getElementById("hintsDisplay");
 const revealedHints = JSON.parse(localStorage.getItem("revealedHints")) || {};
 
@@ -49,13 +55,14 @@ function showHint(hintId, hintText) {
     }
 }
 
-// Load existing hints on page load
+// Load previously revealed hints
 document.addEventListener("DOMContentLoaded", () => {
     Object.keys(revealedHints).forEach(hintId => {
         showHint(hintId, revealedHints[hintId]);
     });
 });
 
+// Ensure hint buttons are set up correctly
 document.querySelectorAll(".hint-btn").forEach(button => {
     button.addEventListener("click", () => {
         const hintText = button.getAttribute("data-hint");
@@ -63,12 +70,9 @@ document.querySelectorAll(".hint-btn").forEach(button => {
 
         if (revealedHints[hintId]) return;
 
-        const confirmFirst = confirm("Are you sure you want to reveal this hint?");
-        if (confirmFirst) {
-            const confirmSecond = confirm("This will use up a hint. Are you really sure?");
-            if (confirmSecond) {
-                showHint(hintId, hintText);
-            }
+        if (confirm("Are you sure you want to reveal this hint?") &&
+            confirm("This will use up a hint. Are you really sure?")) {
+            showHint(hintId, hintText);
         }
     });
 });
