@@ -3,40 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escape Room Admin Panel</title>
+    <title>Escape Room Timer & Hints</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
-    <script src="admin.js" defer></script>
 </head>
 <body>
-    <h1>Escape Room Admin Panel</h1>
+    <div class="container">
+        <h1>Escape Room Timer</h1>
+        <div id="timer">10:00</div>
+        <button onclick="startTimer()">Start Game</button>
 
-    <h2>Room Timers</h2>
-    <div id="timers">
-        <div>
-            <h3>Room 1</h3>
-            <input type="number" id="timeInput_room1" placeholder="Minutes">
-            <button id="setTimer_room1">Set Timer</button>
-        </div>
-        <div>
-            <h3>Room 2</h3>
-            <input type="number" id="timeInput_room2" placeholder="Minutes">
-            <button id="setTimer_room2">Set Timer</button>
-        </div>
-        <div>
-            <h3>Room 3</h3>
-            <input type="number" id="timeInput_room3" placeholder="Minutes">
-            <button id="setTimer_room3">Set Timer</button>
-        </div>
+        <h2>Hints</h2>
+        <button class="hint-btn" onclick="showHint(1)">Show Hint 1</button>
+        <p id="hint1" class="hint hidden">Look under the table!</p>
+
+        <button class="hint-btn" onclick="showHint(2)">Show Hint 2</button>
+        <p id="hint2" class="hint hidden">Check the bookshelf for a hidden clue.</p>
+
+        <button class="hint-btn" onclick="showHint(3)">Show Hint 3</button>
+        <p id="hint3" class="hint hidden">The lock combination is related to the paintings.</p>
     </div>
-
-    <h2>Room QR Codes</h2>
-    <div id="qrCodes"></div>
-
-    <h2>Help Requests</h2>
-    <div id="callsList"></div>
-
+    <script src="script.js"></script>
 </body>
 </html>
