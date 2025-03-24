@@ -1,83 +1,50 @@
-// Set the starting time in seconds (Change this in the code)
-const START_TIME = 600; // 10 minutes
-
-let startTime = localStorage.getItem("startTime");
-let elapsedTime = parseInt(localStorage.getItem("elapsedTime")) || 0;
-let timerRunning = localStorage.getItem("timerRunning") === "true";
-let interval;
-
+const countdownDuration = 30 * 60; // Set countdown time in seconds (e.g., 30 minutes)
 const timerDisplay = document.getElementById("timer");
 const startBtn = document.getElementById("startBtn");
 
-// Update Timer Display
-function updateTimer() {
-    let remainingTime = Math.max(START_TIME - elapsedTime, 0);
-    let minutes = Math.floor(remainingTime / 60);
-    let seconds = remainingTime % 60;
-    timerDisplay.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
-}
-
-// Start Timer
 function startTimer() {
-    if (!timerRunning) {
-        startTime = Date.now() - elapsedTime * 1000;
-        localStorage.setItem("startTime", startTime);
-        localStorage.setItem("timerRunning", "true");
+    const startTime = localStorage.getItem("escapeRoomStartTime");
 
-        interval = setInterval(() => {
-            elapsedTime = Math.floor((Date.now() - startTime) / 1000);
-            localStorage.setItem("elapsedTime", elapsedTime);
-            updateTimer();
-        }, 1000);
-
-        timerRunning = true;
-    }
-}
-
-// Ensure the timer starts correctly when the button is clicked
-if (startBtn) {
-    startBtn.addEventListener("click", startTimer);
-}
-
-// Initialize Timer
-updateTimer();
-
-// Load Persistent Hints
-const hintsDisplay = document.getElementById("hintsDisplay");
-const revealedHints = JSON.parse(localStorage.getItem("revealedHints")) || {};
-
-function showHint(hintId, hintText) {
-    if (!revealedHints[hintId]) {
-        revealedHints[hintId] = hintText;
-        localStorage.setItem("revealedHints", JSON.stringify(revealedHints));
+    if (!startTime) {
+        const now = Math.floor(Date.now() / 1000);
+        localStorage.setItem("escapeRoomStartTime", now);
     }
 
-    if (!document.getElementById(hintId)) {
-        const hintElement = document.createElement("p");
-        hintElement.textContent = hintText;
-        hintElement.id = hintId;
-        hintsDisplay.appendChild(hintElement);
-    }
+    updateTimer();
 }
 
-// Load previously revealed hints
-document.addEventListener("DOMContentLoaded", () => {
-    Object.keys(revealedHints).forEach(hintId => {
-        showHint(hintId, revealedHints[hintId]);
-    });
-});
+function updateTimer() {
+    const startTime = localStorage.getItem("escapeRoomStartTime");
 
-// Attach event listeners to hint buttons
-document.querySelectorAll(".hint-btn").forEach(button => {
-    button.addEventListener("click", () => {
-        const hintText = button.getAttribute("data-hint");
-        const hintId = button.getAttribute("data-hint-id");
+    if (!startTime) return;
 
-        if (revealedHints[hintId]) return;
+    const interval = setInterval(() => {
+        const now = Math.floor(Date.now() / 1000);
+        const elapsedTime = now - startTime;
+        const timeLeft = countdownDuration - elapsedTime;
 
-        if (confirm("Are you sure you want to reveal this hint?") &&
-            confirm("This will use up a hint. Are you really sure?")) {
-            showHint(hintId, hintText);
+        if (timeLeft <= 0) {
+            clearInterval(interval);
+            timerDisplay.textContent = "TIME'S UP!";
+            return;
         }
-    });
+
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        timerDisplay.textContent = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+    }, 1000);
+}
+
+function revealHint(number) {
+    if (confirm(`Are you sure you want to reveal Hint ${number}?`)) {
+        document.getElementById(`hint${number}`).style.display = "block";
+    }
+}
+
+startBtn.addEventListener("click", () => {
+    if (!localStorage.getItem("escapeRoomStartTime")) {
+        startTimer();
+    }
 });
+
+updateTimer();
