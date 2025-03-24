@@ -23,3 +23,8 @@ button {
     font-weight: bold;
     color: darkred;
 }
+
+/* Hide admin buttons by default */
+.hidden {
+    display: none;
+}
