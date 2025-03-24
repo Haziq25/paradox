@@ -24,6 +24,15 @@ button {
     color: darkred;
 }
 
+.hint-image {
+    max-width: 100%;
+    height: auto;
+    border: 2px solid black;
+    margin-top: 10px;
+}
+
+
+
 /* Hide admin buttons by default */
 .hidden {
     display: none;
