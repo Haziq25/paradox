@@ -4,21 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Escape Room Timer</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <h1>Escape Room Timer</h1>
         <div id="timer">00:00</div>
-        <button id="startBtn">Start Game</button>
-
-        <h2>Hints</h2>
+        <button id="startBtn">Start Timer</button>
+        <div id="hints">
+            <button class="hint-btn" data-hint-id="hint1" data-hint="Hint 1: Look under the table!">Hint 1</button>
+            <button class="hint-btn" data-hint-id="hint2" data-hint="Hint 2: The code is in the book!">Hint 2</button>
+        </div>
         <div id="hintsDisplay"></div>
-        <button class="hint-btn" data-hint-id="hint1" data-hint="Hint 1: Look under the table!">Reveal Hint 1</button>
-        <button class="hint-btn" data-hint-id="hint2" data-hint="Hint 2: The key is in the book!">Reveal Hint 2</button>
-
-        <h2>Scan for More Info</h2>
-        <img id="qrCode" src="qrcode.png" alt="Scan QR Code">
+        <img id="qrCode" src="qrcode.png" alt="Scan for more info">
     </div>
     <script src="script.js"></script>
 </body>
