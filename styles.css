@@ -1,39 +1,105 @@
+/* General Styling */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Orbitron', sans-serif;
+    background: url('fractal-bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #00ffcc;
     text-align: center;
-    margin-top: 50px;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Glowing Timer */
+#timer {
+    font-size: 3.5em;
+    font-weight: bold;
+    background: linear-gradient(90deg, #ff00ff, #00ffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0px 0px 15px #ff00ff, 0px 0px 20px #00ffff;
+    margin: 20px 0;
+}
+
+/* Buttons - Neon Glow */
+button {
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 12px 20px;
+    margin: 10px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 255, 204, 0.8);
+    text-transform: uppercase;
+}
+
+#startBtn {
+    background: linear-gradient(90deg, #00ffcc, #0066ff);
+    color: black;
+}
+
+#startBtn:hover {
+    background: linear-gradient(90deg, #0066ff, #00ffcc);
+    box-shadow: 0px 0px 15px #00ffcc;
+}
+
+#resetBtn {
+    background: linear-gradient(90deg, #ff0066, #ff3300);
+    color: black;
+}
+
+#resetBtn:hover {
+    background: linear-gradient(90deg, #ff3300, #ff0066);
+    box-shadow: 0px 0px 15px #ff0066;
+}
+
+#adminUnlockBtn {
+    background: linear-gradient(90deg, #9900ff, #ff00ff);
+    color: black;
+}
+
+#adminUnlockBtn:hover {
+    background: linear-gradient(90deg, #ff00ff, #9900ff);
+    box-shadow: 0px 0px 15px #ff00ff;
+}
+
+/* Hints - Futuristic Glow */
+.hint {
+    display: none;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid #00ffcc;
+    border-radius: 15px;
+    padding: 15px;
+    margin: 15px auto;
+    max-width: 400px;
+    font-size: 1.3em;
+    text-shadow: 0px 0px 10px rgba(0, 255, 204, 0.8);
+    box-shadow: 0px 0px 15px rgba(0, 255, 204, 0.5);
+}
+
+/* Hint Images - Cyberpunk Borders */
+.hint img {
+    max-width: 100%;
+    height: auto;
+    border: 3px solid #00ffcc;
+    border-radius: 15px;
+    box-shadow: 0px 0px 20px rgba(0, 255, 204, 0.7);
+    margin-top: 10px;
+}
+
+/* Hidden Elements */
+.hidden {
+    display: none;
+}
+
+/* Cyber Fractal Glow Effect */
+@keyframes fractalGlow {
+    0% { text-shadow: 0px 0px 10px #ff00ff, 0px 0px 20px #00ffff; }
+    50% { text-shadow: 0px 0px 15px #00ffff, 0px 0px 25px #ff00ff; }
+    100% { text-shadow: 0px 0px 10px #ff00ff, 0px 0px 20px #00ffff; }
 }
 
 #timer {
-    font-size: 2em;
-    margin: 20px;
-}
-
-button {
-    font-size: 1em;
-    padding: 10px 20px;
-    margin: 5px;
-    cursor: pointer;
-}
-
-.hint {
-    display: none;
-    font-size: 1.2em;
-    margin-top: 10px;
-    font-weight: bold;
-    color: darkred;
-}
-
-.hint-image {
-    max-width: 100%;
-    height: auto;
-    border: 2px solid black;
-    margin-top: 10px;
-}
-
-
-
-/* Hide admin buttons by default */
-.hidden {
-    display: none;
+    animation: fractalGlow 2s infinite alternate;
 }
