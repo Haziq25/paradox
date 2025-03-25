@@ -60,6 +60,7 @@ function resetTimer() {
     }
 }
 // Unlock Admin Controls
+
 let touchTimer;
 
 document.body.addEventListener("touchstart", function(event) {
@@ -79,8 +80,6 @@ document.body.addEventListener("touchstart", function(event) {
 document.body.addEventListener("touchend", function() {
     clearTimeout(touchTimer);
 });
-
-
 adminUnlockBtn.addEventListener("click", () => {
     const passcode = prompt("Enter admin password:");
     if (passcode === "admin123") { // Change this password as needed
