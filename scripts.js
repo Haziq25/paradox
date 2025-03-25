@@ -60,6 +60,27 @@ function resetTimer() {
     }
 }
 // Unlock Admin Controls
+let touchTimer;
+
+document.body.addEventListener("touchstart", function(event) {
+    let touchX = event.touches[0].clientX;
+    let touchY = event.touches[0].clientY;
+    let screenWidth = window.innerWidth;
+
+    // If the user presses near the TOP-RIGHT corner
+    if (touchX > screenWidth * 0.8 && touchY < 80) {
+        touchTimer = setTimeout(function() {
+            let adminBtn = document.getElementById("adminUnlockBtn");
+            adminBtn.style.display = "block";
+        }, 1500); // Show after holding for 1.5 seconds
+    }
+});
+
+document.body.addEventListener("touchend", function() {
+    clearTimeout(touchTimer);
+});
+
+
 adminUnlockBtn.addEventListener("click", () => {
     const passcode = prompt("Enter admin password:");
     if (passcode === "admin123") { // Change this password as needed
