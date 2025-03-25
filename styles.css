@@ -1,7 +1,8 @@
 /* General Styling */
 body {
     font-family: 'Orbitron', sans-serif;
-    background-image: url("fractalBG.jpeg") no-repeat center center fixed;
+    background-image: url("fractalBG.jpeg");
+    background-repeat: no-repeat;
     background-size: cover;
     color: #00ffcc;
     text-align: center;
