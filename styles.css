@@ -1,25 +1,33 @@
 /* General Styling */
 body {
     font-family: 'Orbitron', sans-serif;
-    background-image: url("double-bubble-dark.png");
-    color: #00ffcc;
+    background: url('time-warp-bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #00ffff;
     text-align: center;
     margin: 0;
     padding: 20px;
+    overflow: hidden;
 }
 
-/* Glowing Timer */
+/* Time Glitch Effect */
+@keyframes timeGlitch {
+    0% { text-shadow: 2px 2px 10px #ff00ff, -2px -2px 15px #00ffff; }
+    50% { text-shadow: -2px -2px 10px #ff00ff, 2px 2px 15px #00ffff; }
+    100% { text-shadow: 2px 2px 10px #ff00ff, -2px -2px 15px #00ffff; }
+}
+
+/* Timer - Warping Effect */
 #timer {
-    font-size: 3.5em;
+    font-size: 4em;
     font-weight: bold;
     background: linear-gradient(90deg, #ff00ff, #00ffff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0px 0px 15px #ff00ff, 0px 0px 20px #00ffff;
-    margin: 20px 0;
+    animation: timeGlitch 1s infinite alternate;
 }
 
-/* Buttons - Neon Glow */
+/* Buttons - Sci-Fi Ripple Effect */
 button {
     font-size: 1.2em;
     font-weight: bold;
@@ -29,76 +37,64 @@ button {
     cursor: pointer;
     transition: 0.3s ease-in-out;
     border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 255, 204, 0.8);
     text-transform: uppercase;
+    color: white;
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid #00ffff;
+    position: relative;
+    overflow: hidden;
 }
 
-#startBtn {
-    background: linear-gradient(90deg, #00ffcc, #0066ff);
-    color: black;
+button::after {
+    content: "";
+    position: absolute;
+    width: 300%;
+    height: 300%;
+    background: radial-gradient(circle, rgba(255, 0, 255, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease-out;
+    opacity: 0;
 }
 
-#startBtn:hover {
-    background: linear-gradient(90deg, #0066ff, #00ffcc);
-    box-shadow: 0px 0px 15px #00ffcc;
+button:hover::after {
+    opacity: 1;
+    width: 100%;
+    height: 100%;
 }
 
-#resetBtn {
-    background: linear-gradient(90deg, #ff0066, #ff3300);
-    color: black;
+/* Time Distortion Effect */
+@keyframes timeDistortion {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05) rotate(1deg); }
+    100% { transform: scale(1); }
 }
 
-#resetBtn:hover {
-    background: linear-gradient(90deg, #ff3300, #ff0066);
-    box-shadow: 0px 0px 15px #ff0066;
+.distorted {
+    animation: timeDistortion 2s infinite alternate;
 }
 
-#adminUnlockBtn {
-    background: linear-gradient(90deg, #9900ff, #ff00ff);
-    color: black;
-}
-
-#adminUnlockBtn:hover {
-    background: linear-gradient(90deg, #ff00ff, #9900ff);
-    box-shadow: 0px 0px 15px #ff00ff;
-}
-
-/* Hints - Futuristic Glow */
+/* Hints - Time Fracture Glitch */
 .hint {
     display: none;
-    background: rgba(0, 0, 0, 0.7);
-    border: 2px solid #00ffcc;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #ff00ff;
     border-radius: 15px;
     padding: 15px;
     margin: 15px auto;
     max-width: 400px;
     font-size: 1.3em;
-    text-shadow: 0px 0px 10px rgba(0, 255, 204, 0.8);
-    box-shadow: 0px 0px 15px rgba(0, 255, 204, 0.5);
+    text-shadow: 0px 0px 10px rgba(255, 0, 255, 0.8);
+    box-shadow: 0px 0px 15px rgba(255, 0, 255, 0.5);
 }
 
-/* Hint Images - Cyberpunk Borders */
+/* Hint Images - Glitch Border */
 .hint img {
     max-width: 100%;
     height: auto;
-    border: 3px solid #00ffcc;
+    border: 3px solid #ff00ff;
     border-radius: 15px;
-    box-shadow: 0px 0px 20px rgba(0, 255, 204, 0.7);
+    box-shadow: 0px 0px 20px rgba(255, 0, 255, 0.7);
     margin-top: 10px;
-}
-
-/* Hidden Elements */
-.hidden {
-    display: none;
-}
-
-/* Cyber Fractal Glow Effect */
-@keyframes fractalGlow {
-    0% { text-shadow: 0px 0px 10px #ff00ff, 0px 0px 20px #00ffff; }
-    50% { text-shadow: 0px 0px 15px #00ffff, 0px 0px 25px #ff00ff; }
-    100% { text-shadow: 0px 0px 10px #ff00ff, 0px 0px 20px #00ffff; }
-}
-
-#timer {
-    animation: fractalGlow 2s infinite alternate;
 }
