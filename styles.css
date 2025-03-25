@@ -4,6 +4,7 @@ body {
     background-image: url("fractalBG.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: fill;
     color: #00ffcc;
     text-align: center;
     margin: 0;
